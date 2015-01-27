@@ -93,6 +93,8 @@
 % \numberofpagesinformation{16 sivua + 10 sivua liitteissä}
 %
 
+\linespread{1.5}
+
 \begin{document}
 
 % --- Front matter ---
@@ -111,11 +113,15 @@
 % \section{Esimerkkiluku}
 
 
-Haskell on puhtaasti funktionaalinen ohjelmointikieli, eli se perustuu aidosti matemaattisiin funktioihin. Puhtaus tarkoittaa funktionaalisen ohjelmoinnin yhteydessä sitä, että funktioille ei sallita sivuvaikutuksia. Puhdas funktio voi siis vaikuttaa ohjelman suoritukseen ainoastaan palauttamallaan arvolla.  Toinen Haskellin tärkeimmistä perusominaisuuksista on laiska evaluointi. Laiskasti evaluoituvassa ohjelmointikielessä arvo evaluoidaan vasta sitä tarvittaessa. Tämä mahdollistaa esimerkiksi Haskellissa usein käytetyn äärettömien listojen käsittelyn.
+Haskell on puhtaasti funktionaalinen ohjelmointikieli. Funktiot ovat puhtaasti funktionaalisissa ohjelmointikielissä matemaattisia kuvauksia parametrien joukolta palautusarvojen joukolle~\cite[s.~1]{Sab98}. Jokainen funktio siis palauttaa aina saman arvon kun se evaluoidaan samoilla parametreilla. Puhtaus aiheuttaa erityisesti sen, että funktioille ei sallita sivuvaikutuksia. 
+% ääääääh kokoo ittes pls
+Haskellissa sivuvaikutukset on toteutettu monadeilla. Monadit ovat tietotyyppejä, joiden konkreettiset arvot kuvaavat sivuvaikutuksia aiheuttavia tapahtumia~\cite[luku~7]{Mar10}.
 
-Haskellin tyyppijärjestelmä on vahvasti ja staattisesti tyypitetty ja se perustuu laajalti tyyppipäättelyyn. Lausekkeen tyypin määrittely on vapaaehtoista ja tarpeen lähinnä jos kääntäjä ei pysty tyyppiä päättelemään tai jos tyyppi halutaan ekplisiittisesti näkyville esimerkiksi dokumentointitarkoituksessa. Polymorfismi on toteutettu tyyppiluokilla.
+Toinen Haskellin tärkeimmistä perusominaisuuksista on laiska evaluointi. Laiskasti evaluoituvassa ohjelmointikielessä lausekkeen arvo lasketaan vasta tarvittaessa (\emph{call-by-need})~\cite[s.~12-8]{Hud07}. Tämä mahdollistaa esimerkiksi Haskellissa usein käytetyt näennäisesti äärettömät listat. Lisäksi laiska evaluointi käytännössä pakotti Haskellin myös puhtaaksi~\cite[s.~12-8]{Hud07}.
 
-Ajatus Haskellista syntyi Functional Programming Languages and Computer Architecture -konferenssissa vuonna 1987, jossa ryhmä puhtaasti funktionaalisista laiskasti evaluoituvista ohjelmointikielistä kiinnostuneita päätti muodostaa komitean uuden ohjelmointikielen suunnittelemiseksi. Ensimmäinen versio Haskell 1.0 ilmestyi vuonna 1990 ja kielen uusin versio on vuodelta 2010.
+Haskell on vahvasti ja staattisesti tyypitetty. Tyyppijärjestelmä perustuu laajalti tyyppipäättelyyn. Lausekkeen tyypin määrittely on vapaaehtoista ja tarpeen lähinnä kun kääntäjä ei pysty tyyppiä päättelemään tai jos tyyppi halutaan näkyville dokumentointitarkoituksessa. Polymorfismi on toteutettu tyyppiluokilla.
+
+Ajatus Haskellista syntyi Functional Programming Languages and Computer Architecture -konferenssissa vuonna 1987, jossa päätiettiin muodostaa komitea uuden puhtaasti funktionaalisen laiskasti evaluoidun ohjelmointikielen suunnittelemiseksi~\cite[s.~12-1]{Hud07}. Ensimmäinen versio Haskell 1.0 ilmestyi vuonna 1990 ja kielen uusin versio on vuodelta 2010.
 
 
 
