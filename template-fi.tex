@@ -74,7 +74,7 @@
 \title{Haskell}
 \author{Tero Keinänen}
 \date{\today}
-\level{Kandidaatintutkielma}
+\level{~}
 % \abstract{Tiivistelmä.}
 
 % The following can be used to specify keywords and classification of the paper:
@@ -112,6 +112,7 @@
 
 % \section{Esimerkkiluku}
 
+Ajatus Haskellista syntyi \foreignlanguage{english}{Functional Programming Languages and Computer Architecture} -konferenssissa vuonna 1987, jossa päätettiin muodostaa komitea uuden puhtaasti funktionaalisen laiskasti evaluoidun ohjelmointikielen suunnittelemiseksi~\cite[s.~12-1]{Hud07}. Nimen valitseminen katsottiin tärkeäksi ja heti ensimmäisessä komitean tapaamisessa uusi kieli päätettiin nimetä matemaatikko Haskell Curryn mukaan~\cite[s.~12-4]{Hud07}.  Ensimmäinen versio Haskell 1.0 ilmestyi vuonna 1990 ja kielen uusin versio on vuodelta 2010.
 
 Haskell on puhtaasti funktionaalinen ohjelmointikieli. Funktiot ovat puhtaasti funktionaalisissa ohjelmointikielissä matemaattisia kuvauksia parametrien joukolta palautusarvojen joukolle~\cite[s.~1]{Sab98}. Jokainen funktio siis palauttaa aina saman arvon kun se evaluoidaan samoilla parametreilla. Puhtaus aiheuttaa erityisesti sen, että funktioille ei sallita sivuvaikutuksia. 
 % ääääääh kokoo ittes pls
@@ -119,10 +120,7 @@ Haskellissa sivuvaikutukset on toteutettu monadeilla. Monadit ovat tietotyyppej�
 
 Toinen Haskellin tärkeimmistä perusominaisuuksista on laiska evaluointi. Laiskasti evaluoituvassa ohjelmointikielessä lausekkeen arvo lasketaan vasta tarvittaessa (\emph{call-by-need})~\cite[s.~12-8]{Hud07}. Tämä mahdollistaa esimerkiksi Haskellissa usein käytetyt näennäisesti äärettömät listat. Lisäksi laiska evaluointi käytännössä pakotti Haskellin myös puhtaaksi~\cite[s.~12-8]{Hud07}.
 
-Haskell on vahvasti ja staattisesti tyypitetty. Tyyppijärjestelmä perustuu laajalti tyyppipäättelyyn. Lausekkeen tyypin määrittely on vapaaehtoista ja tarpeen lähinnä kun kääntäjä ei pysty tyyppiä päättelemään tai jos tyyppi halutaan näkyville dokumentointitarkoituksessa. Polymorfismi on toteutettu tyyppiluokilla.
-
-Ajatus Haskellista syntyi Functional Programming Languages and Computer Architecture -konferenssissa vuonna 1987, jossa päätiettiin muodostaa komitea uuden puhtaasti funktionaalisen laiskasti evaluoidun ohjelmointikielen suunnittelemiseksi~\cite[s.~12-1]{Hud07}. Ensimmäinen versio Haskell 1.0 ilmestyi vuonna 1990 ja kielen uusin versio on vuodelta 2010.
-
+Haskell on vahvasti ja staattisesti tyypitetty. Käytössä on Hindley--Milner-tyyppijärjestelmä, joka mahdollistaa tehokkaan tyyppipäättelyn~\cite[luku~4.1]{Mar10}. Lausekkeen tyypin määrittely on vapaaehtoista ja tarpeen lähinnä kun kääntäjä ei pysty tyyppiä päättelemään tai jos tyyppi halutaan näkyville dokumentointitarkoituksessa. Parametrisen polymorfismin tarjoavaa Hindley--Milner-tyyppijärjestelmää on Haskellissa laajennettu tyyppiluokilla, jotka tukevat ad hoc -polymorfismia~\cite[luku~4.1]{Mar10}.
 
 
 % --- References ---
