@@ -3,7 +3,7 @@
 % last updated 2013/02/15 for tkltiki2 v1.02
 
 
-\documentclass[english, finnish]{tktltiki2}
+\documentclass[grading, english, finnish]{tktltiki2}
 
 % tktltiki2 automatically loads babel, so you can simply
 % give the language parameter (e.g. finnish, swedish, english, british) as
@@ -32,6 +32,12 @@
 \usepackage{microtype}
 \usepackage{amsfonts,amsmath,amssymb,amsthm,booktabs,color,enumitem,graphicx}
 \usepackage[pdftex,hidelinks]{hyperref}
+
+\usepackage{listings}
+\lstset{
+    language=Haskell,
+    basicstyle=\small
+}
 
 % Automatically set the PDF metadata fields
 \makeatletter
@@ -105,13 +111,13 @@
 \maketitle        % title page
 % \makeabstract     % abstract page
 
-% \tableofcontents  % table of contents
+\tableofcontents  % table of contents
 
 % --- Main matter ---
 
 \mainmatter       % clear page, start arabic page numbering
 
-% \section{Esimerkkiluku}
+\section{Johdanto}
 
 Haskell on puhtaasti funktionaalinen ohjelmointikieli. Puhtaasti funktionaalisissa ohjelmointikielissä funktiot ovat matemaattisia kuvauksia~\cite[s.~1]{Sab98}. Kuvauksen määrittelyjoukko vastaa puhtaan funktion sallittujen todellisten parametrien joukkoa. Maalijoukko puolestaan vastaa funktion mahdollisten palautusarvojen joukkoa. Puhdas funktio siis palauttaa aina saman arvon samoilla parametreilla. Puhtaus myös tarkoittaa, että funktioilla ei voi olla sivuvaikutuksia. Käytännössä jokin tapa aiheuttaa sivuvaikutuksia on kuitenkin yleiskäyttöisessä ohjelmointikielessä pakollinen, sillä ilman sivuvaikutuksia ei esimerkiksi tiedostojen lukeminen ja kirjoittaminen onnistu. Koska lausekkeiden evaluointijärjestystä ei ole määritelty tarkasti ja se voi vaihdella ohjelmointikielen implementaatioiden välillä, käytetään Haskellissa sivuvaikutuksien integroimiseksi erityistä tietotyyppiä, monadia~\cite[luku~7]{Mar10}. Sivuvaikutuksia sisältäville tapahtumille voidaan määritellä yksiselitteinen järjestys käyttämällä monadeja. Monadit ovat hyödyllisiä myös muihin tarkoituksiin, ja niitä on käytetty Haskellissa esimerkiksi jäsentäjien toteuttamisessa.
 
@@ -120,6 +126,40 @@ Toinen Haskellin perusominaisuuksista on laiska evaluointi. Laiskasti evaluoituv
 Haskell on vahvasti ja staattisesti tyypitetty. Käytössä on Hindley--Milner-tyyppijärjestelmä~\cite[luku~4.1]{Mar10}, joka sisältää tyyppipäättelyalgoritmin. Lausekkeen tyypin määrittely on vapaaehtoista ja tarpeen lähinnä, kun kääntäjä ei pysty tyyppiä päättelemään tai jos tyyppi halutaan näkyville dokumentointitarkoituksessa. Hindley--Milner-tyyppijärjestelmää on Haskellissa laajennettu tyyppiluokilla, jotka mahdollistavat funktioiden kuormittamisen~\cite[luku~4.1]{Mar10}.
 
 Ajatus Haskellista syntyi \foreignlanguage{english}{Functional Programming Languages and Computer Architecture} -konferenssissa vuonna 1987, jossa päätettiin muodostaa komitea uuden puhtaasti funktionaalisen, laiskasti evaluoidun ohjelmointikielen suunnittelemiseksi~\cite[s.~12-1]{Hud07}. Nimen valitseminen katsottiin tärkeäksi ja heti ensimmäisessä komitean tapaamisessa uusi kieli päätettiin nimetä matemaatikko Haskell Curryn mukaan~\cite[s.~12-4]{Hud07}.  Ensimmäinen versio Haskell 1.0 ilmestyi vuonna 1990~\cite{HW90} ja kielen uusin versio on vuodelta 2010~\cite{Mar10}.
+
+
+\section{Kielen esittely}
+
+Haskell on funktionaalinen ohjelmointikieli, joten se perustuu funktioiden määrittelemiseen. Tyypillinen esimerkki, kertomafunktio, näyttää Haskellissa seuraavalta:
+\begin{lstlisting}
+kertoma :: Integer -> Integer   
+kertoma 0 = 1                 
+kertoma n = n * kertoma (n - 1)
+\end{lstlisting}
+Ensimmäisellä rivillä määritellään \lstinline|kertoma|-funktion tyypiksi \lstinline|Integer -> Integer|. Lausekkeen tyypin esittäminen tässä yhteydessä ei ole välttämätöntä, sillä kääntäjä pystyy sen myös päättelemään. Funktioille on kuitenkin tapana määritellä tyyppi, sillä se esimerkiksi helpottaa dokumentaation automaattista tuottamista. Toisella ja kolmannella rivillä on funktion osittaiset määritelmät. Tämä määritelmä käyttää hyväksi hahmonsovitusta, jossa lauseketta evaluoitaessa todelliset parametrit yritetään sovittaa määritelmiin ylhäältä alaspäin kokeillen.
+
+Tarkastellaan toisena esimerkkinä funktionaalisessa ohjelmoinnissa usein käytettyä map-funktiota:
+\begin{lstlisting}
+map :: (a -> b) -> [a] -> [b]
+map _ []     = []
+map f (x:xs) = f x : map f xs
+\end{lstlisting}
+Map on siis funktio, jonka parametreja ovat muunnosfunktio (\lstinline|a -> b|) ja lista, jolle muunnos suoritetaan (\lstinline|[a]|). Map ottaa listan, joka sisältää alkioita tyyppiä \lstinline|a|, suorittaa jokaiselle muunnosfunktion, ja palauttaa listan muunnettuja arvoja (\lstinline|[b]|). Ensimmäisenä parametrina olevan funktion tyyppi merkitään sulkuihin, jotta se ymmärretään yhdeksi parametriksi. Haskellissa funktiot siis ovat arvoja, joita voidaan antaa toisille funktioille parametreina. Kolmannella rivillä käytetään hyväksi listan destrukturointia ensimmäiseen alkioon (x) ja loppuosaan (xs). Haskellin sisäänrakennettuja listoja luodaan :-operaattorilla sekä tyhjää listaa tarkoittavalla \lstinline|[]|-literaalilla. Listan alkiot liitetään yhteen listan konstruktorilla, :-operaattorilla, jonka ensimmäinen parametri on listan ensimmäinen alkio ja toinen parametri listan loppuosa. Esimerkiksi lista kokonaislukuja näyttäisi seuraavalta:
+\begin{lstlisting}
+1 : (2 : (3 : (4 : [])))
+\end{lstlisting}
+Sulut ovat kuitenkin tarpeettomat, joten listan voi merkitä myös näin:
+\begin{lstlisting}
+1 : 2 : 3 : 4 : []
+\end{lstlisting}
+Listoille löytyy myös erillinen, hiukan kätevämpi syntaksi:
+\begin{lstlisting}
+[1, 2, 3, 4]
+\end{lstlisting}
+
+Funktioiden soveltaminen Haskellissa tapahtuu oletuksena postfix-merkinnällä, kuten map-funktion määritelmässä funktioiden f ja map soveltaminen, mutta myös infix-muoto on mahdollinen. Map-funktiossa listan kontruktori (:) on infix-muodossa.
+
+
 
 % --- References ---
 %
@@ -130,6 +170,8 @@ Ajatus Haskellista syntyi \foreignlanguage{english}{Functional Programming Langu
 % \bibliographystyle{babalpha-lf}
 %
 % instead.
+
+\newpage
 
 \bibliographystyle{babalpha-lf}
 \bibliography{references-fi}
